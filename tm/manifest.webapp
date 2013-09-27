@@ -2,7 +2,7 @@
 "name": "Task Manager",
 "version": "1.0",
 "description": "Personal Task Manager",
-"launch_path": "/index.html",
+"launch_path": "index.html",
 "permissions": {
 "storage": {
     "description": "Required for storing and retrieving notes."
@@ -13,7 +13,7 @@
     "url": "http://gskorupa.com"
              },
 "icons": {
-    "128": "/images/icon128.png"
+    "128": "images/icon128.png"
          },
 "default_locale": "en"
 }
