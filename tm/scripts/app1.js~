@@ -1,0 +1,106 @@
+$(document).ready(function () {
+
+    var contacts = null;
+
+    //sorting function to help sort json object
+    var sort_by = function (field, reverse, primer) {
+        var key = function (x) { return primer ? primer(x[field]) : x[field] };
+
+        return function (a, b) {
+            var A = key(a), B = key(b);
+            return ((A < B) ? -1 : ((A > B) ? 1 : 0)) * [-1, 1][+!!reverse];
+        }
+    };
+
+    var get_contact_by_id = function (contact_id) {
+        var contact = "";
+
+        for (var i = 0; i < contacts.length; i++) {
+            if (contacts[i].id == contact_id) {
+                return contacts[i];
+            }
+        }
+        return contact;
+    };
+
+    //after the page loads, make ajax call to get he list of contacts
+    $.getJSON("data/projects.txt", function (data) {
+
+        //sort the list of contents alphabetically
+        data.sort(sort_by("name", true, function (a) {
+            return a.toUpperCase()
+        }));
+
+        contacts = data;
+
+        //loop through json array and create lego elements to append 
+        //to contact list see blog post http://blog.raavel.com/2013/08/06/lego/
+
+        for (var i = 0; i < data.length; i++) {
+            var contact = data[i];
+
+            var contant_li = $("<li />", {
+            });
+
+            var contant_href = $("<a />", {
+                "text": contact.name,
+                "data-contact-id": contact.id
+            });
+
+            $(contant_li).append(contant_href);
+            $("#main-project-list").append(contant_li);
+        }
+
+        //when you add dynamic data to a jquerymobile listview - 
+        //you have to refresh it
+        $("#main-project-list").listview('refresh');
+
+        //hide the ajax loader image and show the listview
+        $("div.loader").hide(0, function () {
+            $("#main-project-list").fadeIn();
+        });
+    });
+
+    //function to handle the click of a project
+    $("body").delegate("#main-project-list li a", "tap", function (event, ui) {
+        event.preventDefault();
+
+        //get the appropriate contact from the json object and paint the details pane
+        var contact = get_contact_by_id($(this).attr("data-contact-id"));
+        
+        if (contact != "") {
+            $("div.name").html(contact.name);
+            $("div.id").html(contact.id);
+            $("div.description").html(contact.description);
+
+            //after the details pane is painted, navigate user to details view
+            $.mobile.changePage("#contact-details", { transition: "slidefade" });
+        } else {
+            alert("Looks like there was error in retreiving project info.");
+        }
+    });
+
+    //TODO: function to handle the click of a task
+    $("body").delegate("#main-task-list li a", "tap", function (event, ui) {
+        event.preventDefault();
+
+        //get the appropriate contact from the json object and paint the details pane
+        var task = get_task_by_id($(this).attr("data-task-id"));
+        
+        if (task != "") {
+            $("div.name").html(task.name);
+            $("div.id").html(task.id);
+            $("div.description").html(task.description);
+
+            //after the details pane is painted, navigate user to details view
+            $.mobile.changePage("#task-details", { transition: "slidefade" });
+        } else {
+            alert("Looks like there was error in retreiving task info.");
+        }
+    });
+
+    $("body").delegate("a.addnewproject", "tap", function (event, ui) {
+        event.preventDefault();
+        $.mobile.changePage("#new-project", { transition: "fade" });
+    });
+});

@@ -1,1 +1,271 @@
-Task Manager html
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TaskManager</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="scripts/jquery-mobile/jquery.mobile-1.3.2.min.css" />
+        <script src="scripts/jquery/jquery-1.10.2.min.js"></script>
+        <script src="scripts/jquery-mobile/jquery.mobile-1.3.2.min.js"></script>
+        <script src="scripts/app1.js"></script>
+    </head>
+
+    <body>
+        <section data-role="page" data-theme="c" id="project-list">
+            <div data-role="header" data-theme="c" >
+                <h1>Your projects</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#project-list">Projects</a></li>
+                        <li><a href="#project-details">Project details</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content" data-theme="c" >
+                <ul id="main-project-list" data-role="listview" data-filter="true" data-inset="false" class="ui-icon-alt">
+                </ul>
+                <div class="loader">
+                    <img src="images/ajax-loader.gif" />
+                </div>
+            </div>
+            <div data-role="footer" data-theme="c" data-position="fixed">
+                TaskManager
+                <a class="header-icon configure"><img src="images/config.png" /></a>
+                <a class="header-icon addnewproject"><img src="images/add.png" /></a>
+            </div>
+        </section>
+
+        <section data-role="page" data-theme="c" id="task-list">
+            <div data-role="header">
+                <h1><div class="project_name"></div></h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#project-list">Projects</a></li>
+                        <li><a href="#project-details">Project details</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+            </div>
+            <div data-role="content">
+                <ul id="main-task-list" data-role="listview" data-filter="true" data-inset="false" class="ui-icon-alt">
+                </ul>
+                <div class="loader">
+                    <img src="images/ajax-loader.gif" />
+                </div>
+            </div>
+            <div data-role="footer">
+                <span >
+                    TaskManager
+                </span>
+                <a class="header-icon configure" data-rel="config">
+                    <img src="images/config.png" />
+                </a>
+                <a class="header-icon addnewtask">
+                    <img src="images/add.png" />
+                </a>
+            </div>
+        </section>
+
+        <section data-role="page" id="project-details">
+            <div data-role="header">
+                <a class="header-icon" data-rel="back">
+                    <img src="images/back.png" />
+                </a>
+                <h1>Project details</h1>
+            </div>
+            <div data-role="content" id="details">
+                <table>
+                    <tr><td>ID</td><td><div class="id"></div></td></tr>
+                    <tr><td>Name</td><td><div class="name"></div></td></tr>
+                    <tr><td>Tags</td><td><div class="tags"></div></td></tr>
+                </table>
+                <div>Description</div>
+                <div class="description">
+                    task description goes here
+                </div>
+            </div>
+            <div data-role="footer">
+                <span>
+                    TaskManager
+                </span>
+                <a class="header-icon editproject">
+                    <img src="images/edit.png" />
+                </a>
+                <a class="header-icon deleteproject">
+                    <img src="images/del.png" />
+                </a>
+            </div>
+        </section>
+
+        <section data-role="page" id="task-details">
+            <div data-role="header">
+                <a class="header-icon" data-rel="back">
+                    <img src="images/back.png" />
+                </a>
+                <h1>Task details</h1>
+            </div>
+            <div data-role="content" id="details">
+                <table>
+                    <tr><td>ID</td><td><div class="id"></div></td></tr>
+                    <tr><td>Name</td><td><div class="name"></div></td></tr>
+                </table>
+                <div>Description</div>
+                <div class="description">
+                    task description goes here
+                </div>
+                <div class="priority"></div>
+                <div class="duedate"></div>
+                <div class="tags"></div>
+                <div class="done"></div>
+            </div>
+            <div data-role="footer">
+                <span>
+                    TaskManager
+                </span>
+                <a class="header-icon edittask">
+                    <img src="images/edit.png" />
+                </a>
+                <a class="header-icon deletetask">
+                    <img src="images/del.png" />
+                </a>
+            </div>
+        </section>
+
+        <section data-role="page" id="new-project">
+            <div data-role="header">
+                <a class="header-icon" data-rel="back">
+                    <img src="images/back.png" />
+                </a>
+                <h1>New Project</h1>
+            </div>
+            <div data-role="content">
+                <div class="new_project_id" hidden> </div>
+                <span>name</span>
+                <input type="text" id="add-pname" />
+                <span>tags</span>
+                <input type="text" id="add-ptags" />
+                <span>description</span>
+                <textarea id="add-pdescription"></textarea>
+                <button class="new-project-save">
+                    Add new Project
+                </button>
+            </div>
+            <div data-role="footer">
+                <span>
+                    TaskManager
+                </span>
+            </div>
+        </section>
+        <section data-role="page" id="edit-project">
+            <div data-role="header">
+                <a class="header-icon" data-rel="back">
+                    <img src="images/back.png" />
+                </a>
+                <h1>Edit Project</h1>
+            </div>
+            <div data-role="content">
+                <div class="project_id" hidden> </div>
+                <span>name</span>
+                <input type="text" id="edit-pname" />
+                <span>tags</span>
+                <input type="text" id="edit-ptags" />
+                <span>description</span>
+                <textarea id="edit-pdescription"></textarea>
+                <button class="project-save">
+                    Save Project
+                </button>
+            </div>
+            <div data-role="footer">
+                <span>
+                    TaskManager
+                </span>
+            </div>
+        </section>
+
+        <section data-role="page" id="new-task">
+            <div data-role="header">
+                <a class="header-icon" data-rel="back">
+                    <img src="images/back.png" />
+                </a>
+                <h1>New Task</h1>
+            </div>
+            <div data-role="content">
+                <div class="new_task_id" hidden> </div>
+                <span>task name</span>
+                <input type="text" id="add-tname" />
+                <span>description</span>
+                <textarea id="add-tdescription"></textarea>
+                <span>priority</span>
+                <select id="add-tpriority" name="add-tpriority">
+                    <option value="0"> Low </option>
+                    <option value="1"> High </option>
+                    <option value="2"> Critical </option>
+                </select>
+                <span>due date</span> <span><i>[yyyy-mm-dd]</i></span>
+                <input type="date" id="add-tddate" />
+                <span>tags</span>
+                <input type="text" id="add-ttags" />
+                <button class="new-task-save">
+                    Add new Task
+                </button>
+
+            </div>
+            <div data-role="footer">
+                <span>
+                    TaskManager
+                </span>
+            </div>
+        </section>
+
+        <section data-role="page" id="edit-task">
+            <div data-role="header">
+                <a class="header-icon" data-rel="back">
+                    <img src="images/back.png" />
+                </a>
+                <h1>Edit Task</h1>
+            </div>
+            <div data-role="content">
+                <div class="new_task_id" hidden> </div>
+                <span>task name</span>
+                <input type="text" id="edit-tname" />
+                <span>description</span>
+                <textarea id="edit-tdescription"></textarea>
+                <span>priority</span>
+                <select id="add-tpriority" name="edit-tpriority">
+                    <option value="0"> Low </option>
+                    <option value="1"> High </option>
+                    <option value="2"> Critical </option>
+                </select>
+                <span>due date</span> <span><i>[yyyy-mm-dd]</i></span>
+                <input type="date" id="edit-tddate" />
+                <span>tags</span>
+                <input type="text" id="edit-ttags" />
+                <button class="task-save">
+                    Save Task
+                </button>
+
+            </div>
+            <div data-role="footer">
+                <span>
+                    TaskManager
+                </span>
+            </div>
+        </section>        
+
+        <section data-role="page" id="config">
+            <div data-role="header">
+                <a class="header-icon" data-rel="back">
+                    <img src="images/back.png" />
+                </a>
+                <h1>Configuration</h1>
+            </div>
+            <div data-role="content">
+                Configuration is not supported in this version.
+            </div>
+            <div data-role="footer">
+                <span>
+                    TaskManager
+                </span>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+{
+"name": "Task Manager",
+"version": "1.0",
+"description": "Personal Task Manager",
+"launch_path": "/index.html",
+"permissions": {
+"storage": {
+    "description": "Required for storing and retrieving notes."
+           }
+},
+"developer": {
+    "name": "Grzegorz Skorupa",
+    "url": "http://gskorupa.com"
+             },
+"icons": {
+    "128": "/images/icon128.png"
+         },
+"default_locale": "en"
+}
